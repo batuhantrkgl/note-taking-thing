@@ -40,7 +40,7 @@ export default async function handler(req, res) {
         timestamp: new Date().toISOString(),
       };
       const result = await notesCollection.insertOne(newNote);
-      return res.status(201).json({ ...newNote, id: result.insertedId });  // Send actual ObjectId
+      return res.status(201).json({ ...newNote, _id: result.insertedId });  // Send actual ObjectId
     } catch (error) {
       console.error("Error saving note:", error);
       return res.status(500).json({ error: "Failed to save note" });

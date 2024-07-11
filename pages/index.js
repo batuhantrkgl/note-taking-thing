@@ -63,7 +63,7 @@ export default function Home() {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      setNotes(notes.filter((note) => note.id !== id));
+      setNotes(notes.filter((note) => note._id !== id)); // Ensure using _id
     } catch (error) {
       console.error('Failed to delete note:', error);
     }
@@ -91,8 +91,8 @@ export default function Home() {
           Save Note
         </button>
         <div className={styles.notesContainer}>
-          {sortedNotes.map(({ id, content, timestamp }, index) => (
-            <div key={id || index} className={styles.note}>
+          {sortedNotes.map(({ _id, content, timestamp }, index) => (
+            <div key={_id || index} className={styles.note}>
               <p>{content || 'No content available'}</p>
               <p className={styles.timestamp}>
                 Saved At:{' '}
@@ -100,7 +100,7 @@ export default function Home() {
                   ? new Date(timestamp).toLocaleString()
                   : 'Invalid timestamp'}
               </p>
-              <button onClick={() => deleteNote(id)} className={styles.deleteButton}>
+              <button onClick={() => deleteNote(_id)} className={styles.deleteButton}>
                 Delete
               </button>
             </div>
